@@ -1,0 +1,81 @@
+<!--
+  Generated template for the ProjectAddPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'Add New Project'}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="main-field padding16">
+    <!-- <h3>{{ 'Basic information' | translate}} </h3> -->
+    <div class="cs-form mb10">
+      <form name="data"  (ngSubmit)="f.form.valid && submit(f)" #f="ngForm" novalidate autocomplete="off">
+        <ion-list>
+          
+          <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && project_head?.invalid}">
+            <ion-label floating>{{ 'Owner Name' | translate }} <span>*</span></ion-label>
+            <ion-input type="text" name="project_head" #project_head="ngModel" [(ngModel)]="data.project_head" required></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && project_head_mobile?.invalid}">
+            <ion-label floating>{{ 'Mobile Number' | translate }} <span>*</span></ion-label>
+            <ion-input type="tel" name="project_head_mobile" #project_head_mobile="ngModel" [(ngModel)]="data.project_head_mobile" min="0" maxlength="10" minlength="10" required></ion-input>
+          </ion-item>
+          <ion-item class="cs-input mt0" [ngClass]="{'error':(f.line_one_address && line_one_address?.invalid) || (f.submitted && !line_one_address.valid)}">
+            <ion-label floating>{{'Line 1' | translate}}*</ion-label>
+            <ion-input type="text" name="line_one_address" #line_one_address="ngModel" [(ngModel)]="data.line_one_address" required></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input mt0">
+            <ion-label floating>{{'Line 2' | translate}}</ion-label>
+            <ion-input type="text" name="line_two_address" #line_two_address="ngModel" [(ngModel)]="data.line_two_address"></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && pincode?.invalid}">
+            <ion-label floating>{{'Pincode' | translate}}*</ion-label>
+            <ion-input type="tel" name="pincode" [(ngModel)]="data.pincode" #pincode="ngModel" required maxlength="6" minlength="6" (input)="getaddress(data.pincode)"></ion-input>
+          </ion-item>
+          
+          
+          <ion-item class="cs-input mt0" [ngClass]="{'error':f.submitted && state?.invalid}">
+            <ion-label floating>{{'State' | translate}}*</ion-label>
+            <ion-select name="state" [(ngModel)]="data.state" #state="ngModel" (ngModelChange)="getDistrictList(data.state)" required>
+              <ion-option *ngFor="let row of state_list" value="{{row.state_name}}">{{row.state_name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item class="cs-input mt0"  [ngClass]="{'error':f.submitted && state?.invalid}">
+            <ion-label floating>{{'District' | translate}}*</ion-label>
+            <ion-select name="district" [(ngModel)]="data.district" #district="ngModel" (ngModelChange)="getCityList(data.district)" required>
+              <ion-option *ngFor="let row of district_list" value="{{row.district_name}}">{{row.district_name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item class="cs-input mt0"  [ngClass]="{'error':f.submitted && city?.invalid}">
+            <ion-label floating>{{'City' | translate}}*</ion-label>
+            <ion-input type="text" name="city" [(ngModel)]="data.city" #city="ngModel" required></ion-input>
+          </ion-item>
+          
+          
+        </ion-list>
+        <div class="upload-document" (click)="onUploadImage()">
+          <p *ngIf="data.site_image==''"><i class="material-icons">add_circle</i><br>{{'Upload Site Picture'}}</p>
+          <img *ngIf="data.site_image != ''" [src]="data.site_image" alt="">
+        </div>
+        
+        <div class="pt32 pb16">
+          
+          <button type="submit" ion-button full>{{ 'Save' | translate }}</button>
+        </div>
+      </form>
+      
+      
+      
+    </div>
+  </div>
+</ion-content>
